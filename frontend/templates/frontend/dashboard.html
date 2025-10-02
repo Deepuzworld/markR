@@ -1,0 +1,56 @@
+{% extends 'frontend/base.html' %}
+
+{% block content %}
+    <h2>Your Dashboard</h2>
+    <p>Here is a summary of your academic and extracurricular records.</p>
+    
+    <hr>
+
+    <h3>Academic Records</h3>
+    {# Use the new reverse relationship: academicrecord_set #}
+    {% if student.academicrecord_set.all %}
+        <table>
+            <tr>
+                <th>Semester</th>
+                <th>Course Name</th>
+                <th>Grade</th>
+                <th>Credits</th>
+            </tr>
+            {# Loop through the new records #}
+            {% for record in student.academicrecord_set.all %}
+                <tr>
+                    <td>{{ record.semester }}</td>
+                    <td>{{ record.course_name }}</td>
+                    <td>{{ record.grade }}</td>
+                    <td>{{ record.credits }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No academic records have been recorded for you yet.</p>
+    {% endif %}
+    
+    <br>
+
+    <h3>Co-Curricular Records</h3>
+    {# Use the new reverse relationship: cocurricularrecord_set #}
+    {% if student.cocurricularrecord_set.all %}
+        <table>
+            <tr>
+                <th>Activity Name</th>
+                <th>Role</th>
+                <th>Date</th>
+            </tr>
+            {# Loop through the new records #}
+            {% for record in student.cocurricularrecord_set.all %}
+                <tr>
+                    <td>{{ record.activity_name }}</td>
+                    <td>{{ record.role }}</td>
+                    <td>{{ record.date }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No co-curricular activities have been recorded for you yet.</p>
+    {% endif %}
+{% endblock %}

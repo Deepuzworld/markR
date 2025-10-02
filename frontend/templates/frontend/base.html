@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MarkR Student System</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f4f4f4; margin: 40px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        nav { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 20px; }
+        nav h1 { margin: 0; }
+        nav a { text-decoration: none; color: #007bff; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <h1>MarkR</h1>
+            {% if user.is_authenticated %}
+                <span>Welcome, {{ user.username }}! | <a href="{% url 'logout' %}">Logout</a></span>
+            {% endif %}
+        </nav>
+        {% block content %}
+        <!-- Page specific content will go here -->
+        {% endblock %}
+    </div>
+</body>
+</html>

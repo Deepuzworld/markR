@@ -1,0 +1,39 @@
+{% extends 'frontend/base.html' %}
+
+{% block content %}
+    <h2>Institution Dashboard</h2>
+    
+    {% if institution %}
+        <p>You are logged in as: <strong>{{ institution.name }}</strong></p>
+    {% endif %}
+    
+    <a href="{% url 'create_student' %}" style="display: inline-block; margin: 20px 0; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">+ Create New Student</a>
+    
+    <hr>
+
+    <h3>Your Registered Students</h3>
+    {% if students %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                    <tr>
+                        <td>{{ student.user.username }}</td>
+                        <td>{{ student.user.email }}</td>
+                        <td>
+                            <a href="{% url 'student_detail' student.user_id %}">View / Add Records</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>You have not registered any students yet.</p>
+    {% endif %}
+{% endblock %}

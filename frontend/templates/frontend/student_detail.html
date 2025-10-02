@@ -1,0 +1,51 @@
+{% extends 'frontend/base.html' %}
+
+{% block content %}
+    <h2>Managing Records for: {{ student.user.username }}</h2>
+    <p>Use the form below to add verified academic records for this student.</p>
+    <hr>
+    
+    <h3>Add New Academic Record</h3>
+    <form method="post" action="{% url 'student_detail' student.user_id %}" style="margin-bottom: 30px; display: flex; gap: 10px; align-items: center;">
+        {% csrf_token %}
+        <input type="text" name="course_name" placeholder="Course Name" required style="padding: 8px;">
+        <input type="number" name="semester" placeholder="Semester" required style="padding: 8px;">
+        <input type="text" name="grade" placeholder="Grade (e.g., A+)" required style="padding: 8px;">
+        <select name="record_type" required style="padding: 8px;">
+            <option value="" disabled selected>-- Select Level --</option>
+            <option value="COLLEGE">College Level</option>
+            <option value="UNIVERSITY">University Level</option>
+        </select>
+        <button type="submit" style="padding: 10px 15px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">Add Record</button>
+    </form>
+
+    <hr>
+    
+    <h3>Existing Academic Records</h3>
+    {% if student.academicrecord_set.all %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Course Name</th>
+                    <th>Semester</th>
+                    <th>Grade</th>
+                    <th>Record Level</th>
+                    <th>Verified By</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in student.academicrecord_set.all %}
+                    <tr>
+                        <td>{{ record.course_name }}</td>
+                        <td>{{ record.semester }}</td>
+                        <td>{{ record.grade }}</td>
+                        <td>{{ record.record_type }}</td>
+                        <td>{{ record.verified_by.name }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>This student has no academic records yet.</p>
+    {% endif %}
+{% endblock %}
