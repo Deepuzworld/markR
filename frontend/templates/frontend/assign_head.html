@@ -1,0 +1,22 @@
+{% extends 'frontend/base.html' %}
+{% block content %}
+    <h2>Assign Head for: {{ department.name }}</h2>
+    <hr>
+    <p>Create a new user account for the Head of this Department.</p>
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <label for="username">Username:</label><br>
+            <input type="text" name="username" id="username" required>
+        </p>
+        <p>
+            <label for="email">Email:</label><br>
+            <input type="email" name="email" id="email" required>
+        </p>
+        <p>
+            <label for="password">Initial Password:</label><br>
+            <input type="password" name="password" id="password" required>
+        </p>
+        <button type="submit">Create and Assign Head</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'frontend/base.html' %}
+{% block content %}
+    <h2>{{ institution.name }} - Admin Dashboard</h2>
+    <p>Manage your institution's departments and staff.</p>
+    <a href="{% url 'create_department' %}">+ Add New Department</a>
+    <hr>
+    <h3>Departments</h3>
+    {% if departments %}
+        <table border="1" cellpadding="5" width="100%">
+            <tr><th>Department Name</th><th>Duration</th><th>Department Head</th><th>Actions</th></tr>
+            {% for dept in departments %}
+                <tr>
+                    <td>{{ dept.name }}</td>
+                    <td>{{ dept.duration_years }} years</td>
+                    <td>
+                        {% if dept.head %}
+                            {{ dept.head.username }}
+                        {% else %}
+                            <span style="color: red;">Not Assigned</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if not dept.head %}
+                            <a href="{% url 'assign_head' dept.id %}">Assign Head</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>You have not created any departments yet.</p>
+    {% endif %}
+{% endblock %}

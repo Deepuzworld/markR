@@ -1,0 +1,17 @@
+{% extends 'frontend/base.html' %}
+{% block content %}
+    <h2>Create a New Department</h2>
+    <hr>
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <label for="department_name">Department Name:</label><br>
+            <input type="text" name="department_name" id="department_name" required>
+        </p>
+        <p>
+            <label for="duration_years">Course Duration (in years):</label><br>
+            <input type="number" name="duration_years" id="duration_years" required min="1" max="5">
+        </p>
+        <button type="submit">Create Department</button>
+    </form>
+{% endblock %}

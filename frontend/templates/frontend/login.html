@@ -1,0 +1,30 @@
+{% extends 'frontend/base.html' %}
+
+{% block content %}
+    
+    <h1>MarkR - Centralized Student Information System</h1>
+
+    <h2>Login</h2>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username" required style="padding: 8px; width: 300px;">
+        </p>
+        <p>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" required style="padding: 8px; width: 300px;">
+        </p>
+        <button type="submit" style="padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 5px;">Login</button>
+    </form>
+    
+    <hr style="margin-top: 30px;">
+
+    <p>Don't have an institution account? <a href="{% url 'institution_register' %}">Register your Institution.</a></p>
+
+{% endblock %}
